@@ -1,0 +1,1 @@
+<!-- stack + patron + couches + choix de sécurité et de sobriété (texte) -->
