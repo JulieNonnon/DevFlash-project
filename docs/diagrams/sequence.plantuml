@@ -1,0 +1,40 @@
+' Script diagramme de séquence DevFlash
+' Alt + D pour lancer la preview
+
+@startuml DevFlash
+
+actor Utilisateur
+
+participant "Frontend React" as React
+participant "Backend API\n(Express)" as API
+database "PostgreSQL" as DB
+
+Utilisateur -> React : Sélectionne langage\ncatégorie + nb cartes
+
+Utilisateur -> React : Clique "Commencer"
+
+React -> API : GET /flashcards\n?categoryId=1&limit=10
+
+API -> DB : SELECT * FROM notions\nWHERE category_id = ?\nORDER BY RANDOM()\nLIMIT n
+
+DB --> API : Liste des flashcards
+
+API --> React : JSON flashcards
+
+React --> Utilisateur : Affiche première flashcard
+
+loop Jusqu'à la dernière carte
+
+    Utilisateur -> React : Clique sur flashcard
+    React --> Utilisateur : Affiche verso\n(title + lien doc)
+
+    Utilisateur -> React : Clique "Carte suivante"
+    React --> Utilisateur : Affiche carte suivante
+
+end
+
+React --> Utilisateur : Message de fin\n"Bien joué..."
+
+Utilisateur -> React : Retour accueil
+
+@enduml
