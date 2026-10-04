@@ -1,10 +1,10 @@
 -- Source : Looping
 
-CREATE TABLE Language_(
-   language_name VARCHAR(50),
+CREATE TABLE Stack(
+   stack_name VARCHAR(50),
    slug VARCHAR(50) NOT NULL,
    created_at DATETIME NOT NULL,
-   PRIMARY KEY(language_name),
+   PRIMARY KEY(stack_name),
    UNIQUE(slug)
 );
 
@@ -12,9 +12,9 @@ CREATE TABLE Category(
    category_name VARCHAR(20),
    description TEXT NOT NULL,
    created_at DATETIME NOT NULL,
-   language_name VARCHAR(50) NOT NULL,
+   stack_name VARCHAR(50) NOT NULL,
    PRIMARY KEY(category_name),
-   FOREIGN KEY(language_name) REFERENCES Language_(language_name)
+   FOREIGN KEY(stack_name) REFERENCES Stack(stack_name)
 );
 
 CREATE TABLE Flashcard(
