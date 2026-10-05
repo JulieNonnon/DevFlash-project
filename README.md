@@ -18,17 +18,11 @@ Idées de niche
 Choisis une seule idée. Voici quelques pistes pour t'inspirer :
 
 | Idée | Public cible | Problème résolu |
-
-| --- | --- | --- |
-
+|---|---|---|
 | Galerie photo privée pour photographes | Photographes indépendants | Livrer des photos aux clients de façon professionnelle |
-
 | Carnet de bord pour tatoueurs | Studios de tatouage | Envoyer les consignes de soin post-tatouage aux clients |
-
 | Suivi de chantier simplifié | Artisans | Noter l'avancement d'un chantier sans papier |
-
 | Mini-agenda pour coachs sportifs | Coachs indépendants | Gérer les réservations de séances |
-
 | Journal de bord pour agriculteurs | Petites exploitations | Enregistrer les activités et observations du quotidien |
 
 Tu peux proposer ta propre idée, à condition de respecter la règle : 1 niche + 1 problème + 1 fonctionnalité principale.
@@ -71,11 +65,7 @@ L'Epic contient une checklist markdown qui référence toutes les User Stories e
 - [ ] #13 Définir le persona principal
 - [ ] #14 Documenter 3 sources JTBD
 - [ ] #15 Lister les hypothèses et risques
-## User Stories et tâches de cette Epic
-- [ ] #12 Rédiger le PRD lean
-- [ ] #13 Définir le persona principal
-- [ ] #14 Documenter 3 sources JTBD
-- [ ] #15 Lister les hypothèses et risques
+
 2. User Story (issue, label user-story)
 
 Format obligatoire : En tant que [rôle], je veux [action], afin de [bénéfice].
