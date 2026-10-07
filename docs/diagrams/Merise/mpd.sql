@@ -1,5 +1,15 @@
 -- Source : Looping
 
+CREATE DATABASE devflash_db;
+
+DROP TABLE IF EXISTS Stack CASCADE;
+DROP TABLE IF EXISTS Category CASCADE;
+DROP TABLE IF EXISTS Flashcard CASCADE;
+DROP TABLE IF EXISTS Role CASCADE;
+DROP TABLE IF EXISTS User_ CASCADE;
+DROP TABLE IF EXISTS Add_Favorite CASCADE;
+DROP TABLE IF EXISTS Understand CASCADE;
+
 CREATE TABLE Stack(
    stack_name VARCHAR(50),
    slug VARCHAR(50) NOT NULL,
@@ -44,7 +54,7 @@ CREATE TABLE User_(
    FOREIGN KEY(role_name) REFERENCES Role(role_name)
 );
 
-CREATE TABLE Favoriser(
+CREATE TABLE Add_Favorite(
    ref_flashcard VARCHAR(20),
    email VARCHAR(320),
    PRIMARY KEY(ref_flashcard, email),
@@ -52,7 +62,7 @@ CREATE TABLE Favoriser(
    FOREIGN KEY(email) REFERENCES User_(email)
 );
 
-CREATE TABLE Comprendre(
+CREATE TABLE Understand(
    ref_flashcard VARCHAR(20),
    email VARCHAR(320),
    PRIMARY KEY(ref_flashcard, email),
