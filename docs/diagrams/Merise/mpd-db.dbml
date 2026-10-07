@@ -1,15 +1,20 @@
 // Ctrl+Shift+P on Windows/Linux and search for "DBML: Open Preview to the Side" for preview.
 
+Project DevFlash {
+  database_type: "PostgreSQL"
+  Note: "Modèle relationnel de l'application DevFlash"
+}
+
 Table Stack {
   stack_name varchar(50) [pk]
   slug varchar(50) [not null, unique]
-  created_at datetime [not null]
+  created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
 }
 
 Table Category {
   category_name varchar(20) [pk]
   description text [not null]
-  created_at datetime [not null]
+  created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
   stack_name varchar(50) [not null]
 }
 
@@ -18,50 +23,44 @@ Table Flashcard {
   title varchar(100) [not null]
   definition text [not null]
   doc_url varchar(255) [not null]
-  created_at datetime [not null]
+  created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
   category_name varchar(20) [not null]
 }
 
 Table Role {
   role_name varchar(50) [pk]
-  created_at datetime [not null]
+  created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
 }
 
 Table User_ {
   email varchar(320) [pk]
   username varchar(50) [not null]
   password varchar(255) [not null]
-  created_at datetime [not null]
+  created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
   role_name varchar(50) [not null]
 }
 
-Table Favoriser {
+Table Add_Favorite {
   ref_flashcard varchar(20) [pk]
   email varchar(320) [pk]
 }
 
-Table Comprendre {
+Table Understand {
   ref_flashcard varchar(20) [pk]
   email varchar(320) [pk]
 }
 
 
-// Relations 1:N
+// Relations
 
-Ref: Stack.stack_name < Category.stack_name
+Ref: Category.stack_name > Stack.stack_name
 
-Ref: Category.category_name < Flashcard.category_name
+Ref: Flashcard.category_name > Category.category_name
 
-Ref: Role.role_name < User_.role_name
+Ref: User_.role_name > Role.role_name
 
+Ref: Add_Favorite.ref_flashcard > Flashcard.ref_flashcard
+Ref: Add_Favorite.email > User_.email
 
-// Relations N:N via tables d'association
-
-Ref: User_.email < Favoriser.email
-
-Ref: Flashcard.ref_flashcard < Favoriser.ref_flashcard
-
-Ref: User_.email < Comprendre.email
-
-Ref: Flashcard.ref_flashcard < Comprendre.ref_flashcard
-
+Ref: Understand.ref_flashcard > Flashcard.ref_flashcard
+Ref: Understand.email > User_.email

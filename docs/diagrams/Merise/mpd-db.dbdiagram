@@ -1,0 +1,58 @@
+{
+  "version": "3.0.0",
+  "darkMode": true,
+  "gridEnabling": false,
+  "currentViewName": null,
+  "defaultView": {
+    "detailLevel": "All",
+    "relationshipMode": "All",
+    "tablePositions": [
+      {
+        "name": "Stack",
+        "schemaName": "public",
+        "x": 259.7400286170324,
+        "y": -334.2868147256328
+      },
+      {
+        "name": "Category",
+        "schemaName": "public",
+        "x": 629.260510812076,
+        "y": -320.5995888471491
+      },
+      {
+        "name": "Flashcard",
+        "schemaName": "public",
+        "x": 1098.1036697650138,
+        "y": -102.97269737926143
+      },
+      {
+        "name": "Role",
+        "schemaName": "public",
+        "x": 309.01428845246426,
+        "y": 389.9396655894046
+      },
+      {
+        "name": "User_",
+        "schemaName": "public",
+        "x": 816.7764440746918,
+        "y": 297.3859100952044
+      },
+      {
+        "name": "Add_Favorite",
+        "schemaName": "public",
+        "x": 418.00084884084777,
+        "y": 113.28547150077804
+      },
+      {
+        "name": "Understand",
+        "schemaName": "public",
+        "x": 1276.1942076412856,
+        "y": 338.7775493595275
+      }
+    ],
+    "tableGroupCollapseStates": [],
+    "stickyNoteLayouts": [],
+    "referencePaths": []
+  },
+  "views": {}
+}
