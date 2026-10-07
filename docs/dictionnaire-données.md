@@ -138,9 +138,9 @@ role_name → Role.role_name
 
 ---
 
-## 3.3 Table `Favoriser`
+## 3.3 Table `Add_Favorite`
 
-La table `Favoriser` représente la relation entre les utilisateurs et les flashcards qu'ils ajoutent à leurs favoris.
+La table `Add_Favorite` représente la relation entre les utilisateurs et les flashcards qu'ils ajoutent à leurs favoris.
 
 | Attribut        | Type           | Contraintes | Description                                                            |
 |-----------------|----------------|-------------|------------------------------------------------------------------------|
@@ -164,9 +164,9 @@ La clé primaire composée empêche un même utilisateur d'ajouter plusieurs foi
 
 ---
 
-## 3.4 Table `Comprendre`
+## 3.4 Table `Understand`
 
-La table `Comprendre` représente la relation entre les utilisateurs et les flashcards qu'ils déclarent avoir comprises.
+La table `Understand` représente la relation entre les utilisateurs et les flashcards qu'ils déclarent avoir comprises.
 
 | Attribut        | Type           | Contraintes | Description                                                            |
 |-----------------|----------------|-------------|------------------------------------------------------------------------|
@@ -246,30 +246,30 @@ User_.role_name → Role.role_name
 
 ---
 
-## 4.4 User_ — Flashcard : Favoriser
+## 4.4 User_ — Flashcard : Add_Favorite
 
-Un utilisateur peut favoriser plusieurs flashcards.
+Un utilisateur peut mettre en favori plusieurs flashcards.
 
 Une flashcard peut être favorisée par plusieurs utilisateurs.
 
-Il s'agit donc d'une relation **N,N**, matérialisée par la table associative `Favoriser`.
+Il s'agit donc d'une relation **N,N**, matérialisée par la table associative `Add_Favorite`.
 
 ```text
-User_ (0,N) ─────── Favoriser ─────── (0,N) Flashcard
+User_ (0,N) ─────── Add_Favorite ─────── (0,N) Flashcard
 ```
 
 ---
 
-## 4.5 User_ — Flashcard : Comprendre
+## 4.5 User_ — Flashcard : Understand
 
 Un utilisateur peut indiquer qu'il comprend plusieurs flashcards.
 
 Une flashcard peut être comprise par plusieurs utilisateurs.
 
-Il s'agit donc également d'une relation **N,N**, matérialisée par la table associative `Comprendre`.
+Il s'agit donc également d'une relation **N,N**, matérialisée par la table associative `Understand`.
 
 ```text
-User_ (0,N) ─────── Comprendre ─────── (0,N) Flashcard
+User_ (0,N) ─────── Understand ─────── (0,N) Flashcard
 ```
 
 ---
@@ -316,12 +316,12 @@ User_ (0,N) ─────── Comprendre ─────── (0,N) Flashca
                      ┌──────────┴──────────┐
                      │                     │
                      │                     │
-                  Favoriser             Comprendre
+                  Add_Favorite         Understand
                      │                     │
                      │                     │
                      ▼                     ▼
                ┌────────────┐       ┌────────────┐
-               │ Favoriser  │       │ Comprendre │
+               │Add_Favorite│       │ Understand │
                │────────────│       │────────────│
                │flashcard FK│       │flashcard FK│
                │email FK    │       │email FK    │
@@ -355,15 +355,15 @@ User_ (0,N) ─────── Comprendre ─────── (0,N) Flashca
 
 # 6. Synthèse des clés
 
-| Table        | Clé primaire           | Clé(s) étrangère(s)      |
-|--------------|------------------------|--------------------------|
-| `Stack`      | `stack_name`           | —                        |
-| `Category`   | `category_name`        | `stack_name`             |
-| `Flashcard`  | `ref_flashcard`        | `category_name`          |
-| `Role`       | `role_name`            | —                        |
-| `User_`      | `email`                | `role_name`              |
-| `Favoriser`  | `ref_flashcard, email` | `ref_flashcard`, `email` |
-| `Comprendre` | `ref_flashcard, email` | `ref_flashcard`, `email` |
+| Table         | Clé primaire           | Clé(s) étrangère(s)      |
+|---------------|------------------------|--------------------------|
+| `Stack`       | `stack_name`           | —                        |
+| `Category`    | `category_name`        | `stack_name`             |
+| `Flashcard`   | `ref_flashcard`        | `category_name`          |
+| `Role`        | `role_name`            | —                        |
+| `User_`       | `email`                | `role_name`              |
+| `Add_Favorite`| `ref_flashcard, email` | `ref_flashcard`, `email` |
+| `Understand`  | `ref_flashcard, email` | `ref_flashcard`, `email` |
 
 ---
 
@@ -378,8 +378,8 @@ Les principales contraintes assurées par le modèle sont les suivantes :
 - Un utilisateur possède obligatoirement un rôle.
 - Un rôle est identifié de manière unique.
 - Une adresse e-mail identifie un utilisateur de manière unique.
-- Une association `Favoriser` est unique pour un couple utilisateur/flashcard.
-- Une association `Comprendre` est unique pour un couple utilisateur/flashcard.
+- Une association `Add_Favorite` est unique pour un couple utilisateur/flashcard.
+- Une association `Understand` est unique pour un couple utilisateur/flashcard.
 - Les champs déclarés `NOT NULL` doivent obligatoirement être renseignés.
 - Les clés étrangères garantissent l'existence des éléments référencés.
 
@@ -489,8 +489,8 @@ Role
  └── User_
 
 User_ ↔ Flashcard
-       ├── Favoriser
-       └── Comprendre
+       ├── Add_Favorite
+       └── Understand
 ```
 
 Cette organisation permet de conserver un modèle relativement simple tout en préparant l'évolution de DevFlash vers des fonctionnalités de personnalisation et de suivi utilisateur.
