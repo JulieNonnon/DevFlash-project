@@ -1,15 +1,12 @@
 -- ============================================================
--- Base de données DevFlash
--- SGBD : PostgreSQL
+-- DEVFLASH - Base de données PostgreSQL
 -- ============================================================
 
 CREATE DATABASE devflash_db;
 
--- [TODO]: Créer la base de données en amont dans Dbeaver.
--- Se connecter à la base de données et executer le script ci-dessous pour créer les tables et les relations.
 
 -- ============================================================
--- Suppression des tables existantes
+-- SUPPRESSION DES TABLES EXISTANTES
 -- ============================================================
 
 DROP TABLE IF EXISTS Add_Favorite CASCADE;
@@ -20,111 +17,126 @@ DROP TABLE IF EXISTS User_ CASCADE;
 DROP TABLE IF EXISTS Role CASCADE;
 DROP TABLE IF EXISTS Stack CASCADE;
 
+
 -- ============================================================
--- Table : Stack
+-- TABLE : Stack
 -- ============================================================
 
 CREATE TABLE Stack (
-    stack_name VARCHAR(50),
+    stack_id INT GENERATED ALWAYS AS IDENTITY,
+    stack_name VARCHAR(50) NOT NULL,
     slug VARCHAR(50) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    PRIMARY KEY (stack_name),
+    PRIMARY KEY (stack_id),
+    UNIQUE (stack_name),
     UNIQUE (slug)
 );
 
+
 -- ============================================================
--- Table : Category
+-- TABLE : Category
 -- ============================================================
 
 CREATE TABLE Category (
-    category_name VARCHAR(20),
+    category_id INT GENERATED ALWAYS AS IDENTITY,
+    category_name VARCHAR(20) NOT NULL,
     description TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    stack_name VARCHAR(50) NOT NULL,
+    stack_id INT NOT NULL,
 
-    PRIMARY KEY (category_name),
+    PRIMARY KEY (category_id),
 
-    FOREIGN KEY (stack_name)
-        REFERENCES Stack(stack_name)
+    FOREIGN KEY (stack_id)
+        REFERENCES Stack(stack_id)
 );
 
+
 -- ============================================================
--- Table : Flashcard
+-- TABLE : Flashcard
 -- ============================================================
 
 CREATE TABLE Flashcard (
-    ref_flashcard VARCHAR(20),
+    flashcard_id INT GENERATED ALWAYS AS IDENTITY,
+    ref_flashcard VARCHAR(20) NOT NULL,
     title VARCHAR(100) NOT NULL,
     definition TEXT NOT NULL,
     doc_url VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    category_name VARCHAR(20) NOT NULL,
+    category_id INT NOT NULL,
 
-    PRIMARY KEY (ref_flashcard),
+    PRIMARY KEY (flashcard_id),
+    UNIQUE (ref_flashcard),
 
-    FOREIGN KEY (category_name)
-        REFERENCES Category(category_name)
+    FOREIGN KEY (category_id)
+        REFERENCES Category(category_id)
 );
 
+
 -- ============================================================
--- Table : Role
+-- TABLE : Role
 -- ============================================================
 
 CREATE TABLE Role (
-    role_name VARCHAR(50),
+    role_id INT GENERATED ALWAYS AS IDENTITY,
+    role_name VARCHAR(50) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    PRIMARY KEY (role_name)
+    PRIMARY KEY (role_id)
 );
 
+
 -- ============================================================
--- Table : User_
+-- TABLE : User_
 -- ============================================================
 
 CREATE TABLE User_ (
-    email VARCHAR(320),
+    user_id INT GENERATED ALWAYS AS IDENTITY,
+    email VARCHAR(320) NOT NULL,
     username VARCHAR(50) NOT NULL,
-    password VARCHAR(255) NOT NULL, -- Stockage du mot de passe haché
+    password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    role_name VARCHAR(50) NOT NULL,
+    role_id INT NOT NULL,
 
-    PRIMARY KEY (email),
+    PRIMARY KEY (user_id),
+    UNIQUE (email),
 
-    FOREIGN KEY (role_name)
-        REFERENCES Role(role_name)
+    FOREIGN KEY (role_id)
+        REFERENCES Role(role_id)
 );
 
+
 -- ============================================================
--- Table : Add_Favorite
+-- TABLE : Add_Favorite
 -- ============================================================
 
 CREATE TABLE Add_Favorite (
-    ref_flashcard VARCHAR(20),
-    email VARCHAR(320),
+    flashcard_id INT,
+    user_id INT,
 
-    PRIMARY KEY (ref_flashcard, email),
+    PRIMARY KEY (flashcard_id, user_id),
 
-    FOREIGN KEY (ref_flashcard)
-        REFERENCES Flashcard(ref_flashcard),
+    FOREIGN KEY (flashcard_id)
+        REFERENCES Flashcard(flashcard_id),
 
-    FOREIGN KEY (email)
-        REFERENCES User_(email)
+    FOREIGN KEY (user_id)
+        REFERENCES User_(user_id)
 );
 
+
 -- ============================================================
--- Table : Understand
+-- TABLE : Understand
 -- ============================================================
 
 CREATE TABLE Understand (
-    ref_flashcard VARCHAR(20),
-    email VARCHAR(320),
+    flashcard_id INT,
+    user_id INT,
 
-    PRIMARY KEY (ref_flashcard, email),
+    PRIMARY KEY (flashcard_id, user_id),
 
-    FOREIGN KEY (ref_flashcard)
-        REFERENCES Flashcard(ref_flashcard),
+    FOREIGN KEY (flashcard_id)
+        REFERENCES Flashcard(flashcard_id),
 
-    FOREIGN KEY (email)
-        REFERENCES User_(email)
+    FOREIGN KEY (user_id)
+        REFERENCES User_(user_id)
 );

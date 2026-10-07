@@ -6,61 +6,66 @@ Project DevFlash {
 }
 
 Table Stack {
-  stack_name varchar(50) [pk]
+  stack_id int [pk]
+  stack_name varchar(50) [not null, unique]
   slug varchar(50) [not null, unique]
   created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
 }
 
 Table Category {
-  category_name varchar(20) [pk]
+  category_id int [pk]
+  category_name varchar(20) [not null]
   description text [not null]
-  created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
-  stack_name varchar(50) [not null]
+  created_at timestamp [not null]
+  stack_id int [not null]
 }
 
 Table Flashcard {
-  ref_flashcard varchar(20) [pk]
+  flashcard_id int [pk]
+  ref_flashcard varchar(20) [not null, unique]
   title varchar(100) [not null]
   definition text [not null]
   doc_url varchar(255) [not null]
-  created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
-  category_name varchar(20) [not null]
+  created_at timestamp [not null]
+  category_id int [not null]
 }
 
 Table Role {
-  role_name varchar(50) [pk]
-  created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
+  role_id int [pk]
+  role_name varchar(50) [not null]
+  created_at timestamp [not null]
 }
 
 Table User_ {
-  email varchar(320) [pk]
+  user_id int [pk]
+  email varchar(320) [not null, unique]
   username varchar(50) [not null]
   password varchar(255) [not null]
-  created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
-  role_name varchar(50) [not null]
+  created_at timestamp [not null]
+  role_id int [not null]
 }
 
 Table Add_Favorite {
-  ref_flashcard varchar(20) [pk]
-  email varchar(320) [pk]
+  flashcard_id int [pk]
+  user_id int [pk]
 }
 
 Table Understand {
-  ref_flashcard varchar(20) [pk]
-  email varchar(320) [pk]
+  flashcard_id int [pk]
+  user_id int [pk]
 }
 
 
 // Relations
 
-Ref: Category.stack_name > Stack.stack_name
+Ref: Category.stack_id > Stack.stack_id
 
-Ref: Flashcard.category_name > Category.category_name
+Ref: Flashcard.category_id > Category.category_id
 
-Ref: User_.role_name > Role.role_name
+Ref: User_.role_id > Role.role_id
 
-Ref: Add_Favorite.ref_flashcard > Flashcard.ref_flashcard
-Ref: Add_Favorite.email > User_.email
+Ref: Add_Favorite.flashcard_id > Flashcard.flashcard_id
+Ref: Add_Favorite.user_id > User_.user_id
 
-Ref: Understand.ref_flashcard > Flashcard.ref_flashcard
-Ref: Understand.email > User_.email
+Ref: Understand.flashcard_id > Flashcard.flashcard_id
+Ref: Understand.user_id > User_.user_id
