@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+echo "🔍 Vérification du frontend..."
+npm --prefix frontend run lint || exit 1
+
+echo "🔍 Vérification du backend..."
+npm --prefix backend run build || exit 1
+
+echo "✅ Toutes les vérifications sont passées !"
