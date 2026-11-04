@@ -1,0 +1,7 @@
+echo "🏗️ Build du frontend..."
+npm --prefix frontend run build || exit 1
+
+echo "🏗️ Build du backend..."
+npm --prefix backend run build || exit 1
+
+echo "✅ Les deux builds sont valides !"

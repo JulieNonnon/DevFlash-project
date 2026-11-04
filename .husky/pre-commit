@@ -1,5 +1,3 @@
-#!/usr/bin/env sh
-
 echo "🔍 Vérification du frontend..."
 npm --prefix frontend run lint || exit 1
 
