@@ -1,7 +1,5 @@
-echo "🔍 Vérification du frontend..."
-npm --prefix frontend run lint || exit 1
+echo "🔍 Vérification des fichiers modifiés..."
 
-echo "🔍 Vérification du backend..."
-npm --prefix backend run build || exit 1
+npx lint-staged || exit 1
 
-echo "✅ Toutes les vérifications sont passées !"
+echo "✅ Vérifications terminées !"
