@@ -1,4 +1,13 @@
 {
-  "frontend/**/*.{js,jsx,ts,tsx}": "eslint",
-  "backend/**/*.{js,jsx,ts,tsx}": "eslint"
+  "frontend/**/*.{js,jsx,ts,tsx,mjs,cjs,mts,cts}": [
+    "npm --prefix frontend exec -- eslint --fix",
+    "prettier --write"
+  ],
+  "backend/**/*.{js,jsx,ts,tsx,mjs,cjs,mts,cts}": [
+    "npm --prefix backend exec -- eslint --fix",
+    "prettier --write"
+  ],
+  "frontend/**/*.{json,css,scss,md,mdx,html,yml,yaml}": "prettier --write",
+  "backend/**/*.{json,css,scss,md,mdx,html,yml,yaml}": "prettier --write",
+  "*.{json,md,yml,yaml}": "prettier --write"
 }

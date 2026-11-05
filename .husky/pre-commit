@@ -1,3 +1,6 @@
+# Vérifie uniquement les fichiers staged
+# grâce à lint-staged et .lintstagedrc.json
+
 echo "🔍 Vérification des fichiers modifiés..."
 
 npx lint-staged || exit 1
