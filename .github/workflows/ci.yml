@@ -1,0 +1,49 @@
+name: CI - DevFlash Project
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+
+  pull_request:
+    branches:
+      - develop
+      - main
+
+jobs:
+  build-and-check:
+    name: Build and Code Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.17.0'
+
+      - name: Install root dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Install frontend dependencies
+        run: npm ci
+        working-directory: frontend
+
+      - name: Install backend dependencies
+        run: npm ci
+        working-directory: backend
+
+      - name: Check frontend lint
+        run: npm run lint
+        working-directory: frontend
+
+      - name: Check frontend build
+        run: npm run build
+        working-directory: frontend
+
+      - name: Check backend build
+        run: npm run build
+        working-directory: backend
