@@ -1,11 +1,15 @@
 // completion page of the app, allowing the user to end the study session, view their results and come back to the home page
 
+import { Link } from 'react-router-dom';
+
 function Completion() {
   return (
     <main>
       <h1>Bien joué !</h1>
 
       <p>Vous avez terminé votre parcours.</p>
+
+      <Link to="/">Retour à l'accueil</Link>
     </main>
   );
 }
