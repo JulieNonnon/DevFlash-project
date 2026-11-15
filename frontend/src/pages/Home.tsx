@@ -18,7 +18,7 @@ function Home() {
       return;
     }
 
-    console.log({
+    console.log('Parcours configuré avec les paramètres suivants :', {
       category,
       cardCount,
     });
