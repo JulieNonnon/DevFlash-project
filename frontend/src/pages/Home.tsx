@@ -1,6 +1,7 @@
 // home page of the app, where the user can select a category and the number of cards to study
 
 import { useState, type SubmitEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CategorySelect from '../components/CategorySelect';
 import CardCountSelect from '../components/CardCountSelect';
 
@@ -9,6 +10,7 @@ function Home() {
   const [cardCount, setCardCount] = useState<number | ''>('');
 
   const canStart = category !== '' && cardCount !== '';
+  const navigate = useNavigate();
 
   const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     //SubmitEvent instead of FormEvent after React 19.2.10 update
@@ -21,6 +23,14 @@ function Home() {
     console.log('Parcours configuré avec les paramètres suivants :', {
       category,
       cardCount,
+    });
+
+    navigate('/study', {
+      // Pass the selected category and card count as state to the Study page
+      state: {
+        category,
+        cardCount,
+      },
     });
   };
 
