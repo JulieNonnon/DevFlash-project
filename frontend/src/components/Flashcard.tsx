@@ -1,6 +1,7 @@
 // flashcard component
 
 import { useState } from 'react';
+import './Flashcard.css';
 
 interface FlashcardProps {
   definition: string;
@@ -19,23 +20,23 @@ function Flashcard({ definition, methodName, mdnUrl }: FlashcardProps) {
   };
 
   return (
-    <div>
-      <div>
+    <div className="flashcard">
+      <div className="flashcard__content">
         {isFlipped ? (
-          <pre>
+          <pre className="flashcard__method">
             <code>{methodName}</code>
           </pre>
         ) : (
-          <p>{definition}</p>
+          <p className="flashcard__definition">{definition}</p>
         )}
 
-        <button type="button" onClick={handleFlip}>
+        <button className="flashcard__flip-button" type="button" onClick={handleFlip}>
           {isFlipped ? 'Voir la définition' : 'Retourner la carte'}
         </button>
       </div>
 
       {isFlipped && (
-        <a href={mdnUrl} target="_blank" rel="noopener noreferrer">
+        <a className="flashcard__mdn-link" href={mdnUrl} target="_blank" rel="noopener noreferrer">
           Consulter la documentation MDN
         </a>
       )}
