@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Flashcard from '../components/Flashcard';
 
 interface StudyState {
@@ -44,11 +45,28 @@ function Study() {
   // Type assertion to ensure that the state passed from the Home page is of type StudyState, or null if no state was passed
   const state = location.state as StudyState | null;
 
-  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const navigate = useNavigate();
 
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const currentCard = flashcards[currentCardIndex];
 
+  const isFirstCard = currentCardIndex === 0;
+  const isLastCard = currentCardIndex === flashcards.length - 1;
+
+  const handlePreviousCard = () => {
+    if (isFirstCard) {
+      return;
+    }
+
+    setCurrentCardIndex((previousIndex) => previousIndex - 1);
+  };
+
   const handleNextCard = () => {
+    if (isLastCard) {
+      navigate('/completion');
+      return;
+    }
+
     setCurrentCardIndex((previousIndex) => previousIndex + 1);
   };
 
@@ -73,8 +91,14 @@ function Study() {
       />
 
       <button type="button" onClick={handleNextCard}>
-        Carte suivante
+        {isLastCard ? 'Terminer le parcours' : 'Carte suivante'}
       </button>
+
+      {!isFirstCard && (
+        <button type="button" onClick={handlePreviousCard}>
+          Carte précédente
+        </button>
+      )}
     </main>
   );
 }
