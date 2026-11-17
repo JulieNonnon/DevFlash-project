@@ -1,5 +1,6 @@
 // study page of the app, where the user can study flashcards based on the selected category and number of cards
 
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Flashcard from '../components/Flashcard';
 
@@ -8,11 +9,48 @@ interface StudyState {
   cardCount: number;
 }
 
+interface FlashcardData {
+  definition: string;
+  methodName: string;
+  mdnUrl: string;
+}
+
+const flashcards: FlashcardData[] = [
+  {
+    definition:
+      "Une méthode qui ajoute un ou plusieurs éléments à la fin d'un tableau et retourne sa nouvelle longueur.",
+    methodName: 'push()',
+    mdnUrl:
+      'https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/push',
+  },
+  {
+    definition: "Une méthode qui supprime le dernier élément d'un tableau et retourne cet élément.",
+    methodName: 'pop()',
+    mdnUrl:
+      'https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/pop',
+  },
+  {
+    definition:
+      'Une méthode qui vérifie si un tableau contient une certaine valeur et retourne true ou false.',
+    methodName: 'includes()',
+    mdnUrl:
+      'https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/includes',
+  },
+];
+
 function Study() {
   // Use the useLocation hook to access the state passed from the Home page
   const location = useLocation();
   // Type assertion to ensure that the state passed from the Home page is of type StudyState, or null if no state was passed
   const state = location.state as StudyState | null;
+
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+
+  const currentCard = flashcards[currentCardIndex];
+
+  const handleNextCard = () => {
+    setCurrentCardIndex((previousIndex) => previousIndex + 1);
+  };
 
   if (!state) {
     return (
@@ -28,17 +66,15 @@ function Study() {
     <main>
       <h1>Parcours</h1>
 
-      <p>Catégorie : {state.category}</p>
-
-      <p>Nombre de cartes : {state.cardCount}</p>
-
       <Flashcard
-        definition="Une méthode qui ajoute un ou plusieurs éléments à la fin d'un tableau et retourne sa nouvelle longueur."
-        methodName="push()"
-        mdnUrl="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/push"
+        definition={currentCard.definition}
+        methodName={currentCard.methodName}
+        mdnUrl={currentCard.mdnUrl}
       />
 
-      <button type="button">Carte suivante</button>
+      <button type="button" onClick={handleNextCard}>
+        Carte suivante
+      </button>
     </main>
   );
 }
