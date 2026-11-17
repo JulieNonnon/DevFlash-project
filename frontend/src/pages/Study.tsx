@@ -1,6 +1,7 @@
 // study page of the app, where the user can study flashcards based on the selected category and number of cards
 
 import { useLocation } from 'react-router-dom';
+import Flashcard from '../components/Flashcard';
 
 interface StudyState {
   category: string;
@@ -30,6 +31,14 @@ function Study() {
       <p>Catégorie : {state.category}</p>
 
       <p>Nombre de cartes : {state.cardCount}</p>
+
+      <Flashcard
+        definition="Une méthode qui ajoute un ou plusieurs éléments à la fin d'un tableau et retourne sa nouvelle longueur."
+        methodName="push()"
+        mdnUrl="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/push"
+      />
+
+      <button type="button">Carte suivante</button>
     </main>
   );
 }
