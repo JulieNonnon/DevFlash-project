@@ -85,6 +85,7 @@ function Study() {
       <h1>Parcours</h1>
 
       <Flashcard
+        key={currentCardIndex}
         definition={currentCard.definition}
         methodName={currentCard.methodName}
         mdnUrl={currentCard.mdnUrl}
