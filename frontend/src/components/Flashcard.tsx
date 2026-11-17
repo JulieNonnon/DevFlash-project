@@ -11,30 +11,34 @@ interface FlashcardProps {
 function Flashcard({ definition, methodName, mdnUrl }: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
+  // false -> recto
+  // true -> verso
+
   const handleFlip = () => {
-    setIsFlipped(!isFlipped);
+    setIsFlipped((previousValue) => !previousValue);
   };
 
   return (
     <div>
-      <button type="button" onClick={handleFlip}>
+      <div>
         {isFlipped ? (
-          <>
-            <p>{methodName}</p>
-
-            <a
-              href={mdnUrl}
-              target="_blank"
-              rel="noreferrer"
-              onClick={(event) => event.stopPropagation()}
-            >
-              Consulter la documentation MDN
-            </a>
-          </>
+          <pre>
+            <code>{methodName}</code>
+          </pre>
         ) : (
           <p>{definition}</p>
         )}
-      </button>
+
+        <button type="button" onClick={handleFlip}>
+          {isFlipped ? 'Voir la définition' : 'Retourner la carte'}
+        </button>
+      </div>
+
+      {isFlipped && (
+        <a href={mdnUrl} target="_blank" rel="noopener noreferrer">
+          Consulter la documentation MDN
+        </a>
+      )}
     </div>
   );
 }
