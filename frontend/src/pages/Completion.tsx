@@ -1,15 +1,46 @@
 // completion page of the app, allowing the user to end the study session, view their results and come back to the home page
 
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+interface CompletionState {
+  cardCount: number;
+}
 
 function Completion() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const state = location.state as CompletionState | null;
+
+  const handleReturnHome = () => {
+    navigate('/');
+  };
+
+  if (!state) {
+    return (
+      <main>
+        <h1>Parcours terminé</h1>
+
+        <p>Le nombre de flashcards parcourues est introuvable.</p>
+
+        <button type="button" onClick={handleReturnHome}>
+          Retour à l'accueil
+        </button>
+      </main>
+    );
+  }
+
   return (
     <main>
-      <h1>Bien joué !</h1>
+      <h1>Bien joué ! 🎉</h1>
 
-      <p>Vous avez terminé votre parcours.</p>
+      <p>
+        Vous avez parcouru l'ensemble des <strong>{state.cardCount}</strong> flashcards.
+      </p>
 
-      <Link to="/">Retour à l'accueil</Link>
+      <button type="button" onClick={handleReturnHome}>
+        Retour à l'accueil
+      </button>
     </main>
   );
 }

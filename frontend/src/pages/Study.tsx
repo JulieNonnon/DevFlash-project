@@ -69,7 +69,11 @@ function Study() {
 
   const handleNextCard = () => {
     if (isLastCard) {
-      navigate('/completion');
+      navigate('/completion', {
+        state: {
+          cardCount: studyCards.length,
+        },
+      });
       return;
     }
 
@@ -82,7 +86,10 @@ function Study() {
 
       <p> Bienvenue dans votre parcours de flashcards.</p>
       <p> Catégorie : {state.category} </p>
-      <p> Nombre de cartes : {state.cardCount} </p>
+      <p>
+        {' '}
+        Nombre de cartes : Carte {currentCardIndex + 1} / {studyCards.length}{' '}
+      </p>
 
       <Flashcard
         key={currentCard.id}
